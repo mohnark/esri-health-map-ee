@@ -3,7 +3,7 @@ import SimpleRenderer from "@arcgis/core/renderers/SimpleRenderer";
 export const populationDensityConfig = {
     title: 'Population',
     outFields: ["*"],
-    url: "/public/kontour_pop_wgs.geojson",
+    url: "/kontour_pop_wgs.geojson",
     renderer: new SimpleRenderer({
         symbol: {
             type: "simple-fill",
@@ -33,7 +33,7 @@ export const populationDensityConfig = {
 
 
 export const healthFacilityConfig = {
-    url: "/public/est_health_facilities.geojson",
+    url: "/est_health_facilities.geojson",
     outFields: ["*"],
     renderer: new SimpleRenderer({
         symbol: {

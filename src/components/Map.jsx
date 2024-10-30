@@ -9,6 +9,8 @@ import GeoJSONLayer from "@arcgis/core/layers/GeoJSONLayer";
 import {healthFacilityConfig, populationDensityConfig} from "./utils.jsx";
 import {addComparisonWidget, widgetContainerStyle} from "./widget.jsx";
 import Legend from "@arcgis/core/widgets/Legend.js";
+import Search from "@arcgis/core/widgets/Search";
+
 
 const Map = () => {
     const map = useRef(null);
@@ -45,6 +47,22 @@ const Map = () => {
             });
             view.ui.add(legend, "bottom-right");
 
+            const searchWidget = new Search({
+                view: view,
+                sources: [
+                    {
+                        layer: healthFacilities,
+                        searchFields: ["name"],
+                        displayField: "name",
+                        exactMatch: false,
+                        outFields: ["*"],
+                        name: "Health Facilities",
+                        placeholder: "Search for health facilities by name",
+                    }
+                ]
+            });
+            view.ui.add(searchWidget, "top-right");
+
             // Select Basemap and Layer List
             const basemapGallery = new BasemapGallery({
                     view: view
@@ -64,6 +82,8 @@ const Map = () => {
             view.when(() => {
                 addComparisonWidget(view, healthFacilities, popDensity);
             });
+
+
             return () => {if (view) view.destroy();}
             } catch (error){
                 console.error(error);
